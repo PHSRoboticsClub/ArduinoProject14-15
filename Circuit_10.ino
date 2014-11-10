@@ -78,7 +78,7 @@ Version 2.0 6/2012 MDG
 // We'll be controlling the motor from pin 9.
 // This must be one of the PWM-capable pins.
 
-const int motorPin = 9;
+const int motorPin = 3;
 
 
 void setup()
