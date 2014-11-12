@@ -2,6 +2,7 @@
 
 const int motorPinA = 3, motorPinB = 11; //assigns motor control pins
 const int sensorPinTrigger = 7, sensorPinEcho = 6; //assigns sensor control pins
+long rawDistance, distance;
 
 void setup() {
   Serial.begin(9600); //sets up serial port
@@ -18,8 +19,13 @@ void loop() {
   //turnClockwise90()
 }
 
-void checkForObstacle() {
+void checkForObstacle() { //mostly ripped from Ultrasonic file
   //if sensor value <= certain value, stop to avoid collision
+  digitalWrite(sensorPinTrigger, HIGH);
+  delayMicroseconds(10); // short delay
+  digitalWrite(sensorPinTrigger, LOW); //set trigger low
+  rawDistance = pulseIn(sensorPinEcho, HIGH); //read echo pin
+  distance = (rawDistance/2) / 29.1; // convert to cm
 }
 
 void turnClockwise90() {
