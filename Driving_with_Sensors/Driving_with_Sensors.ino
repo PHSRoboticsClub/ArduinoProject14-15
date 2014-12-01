@@ -2,6 +2,7 @@
 
   const int motorSpeed = 50; //default speed for motors (in range 0-255)
   const int motorPinA = 3, motorPinB = 11; //assigns motor control pins
+  const int dirPinA = 12, dirPinB = 13; //assigns motor direction pins
   const int frontSensorPinTrigger = 5, frontSensorPinEcho = 4; //assigns front sensor control pins
   const int sideSensorPinTrigger = 7, sideSensorPinEcho = 6; //assigns side sensor control pins
   long rawDistanceFront, distanceFront, rawDistanceSide, distanceSide; //variables for sensor values
@@ -49,8 +50,11 @@ void turn90Degrees() {
   distanceSide = (rawDistanceSide/2) / 29.1; // convert to cm
   
   if (distanceSide <= 20) { //check for a wall on the left
-	Serial.println("HOLY S*** THERE'S SOMETHING ON THE LEFT! TURN RIGHT!");
+        Serial.println("HOLY S*** THERE'S SOMETHING ON THE LEFT! TURN RIGHT!");
 	//turn right
+        digitalWrite(dirPinA, LOW);
+        digitalWrite(dirPinB, HIGH);
+        analogWrite(motorPinA, motorSpeed);
         analogWrite(motorPinB, motorSpeed);
         delay(500);
         //use millis() to calculate elapsed time for delay before loop() drives forward
@@ -58,7 +62,10 @@ void turn90Degrees() {
 	//Serial.print(distanceSide);
 	Serial.println("Nothing on the left, turning that way.");
 	//turn left
+        digitalWrite(dirPinA, HIGH);
+        digitalWrite(dirPinB, LOW);
         analogWrite(motorPinA, motorSpeed);
+        analogWrite(motorPinB, motorSpeed);
         delay(500);
         //use millis() to calculate elapsed time for delay before loop() drives forward
   }
