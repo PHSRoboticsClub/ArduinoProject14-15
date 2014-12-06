@@ -1,6 +1,6 @@
 //MISSION: approach obstacle, stop without a collision, turn 90 degrees, then proceed forward
 
-const int motorSpeed = 100; //default speed for motors (in range 0-255)
+const int motorSpeed = 60; //default speed for motors (in range 0-255)
 const int motorPinA = 3, motorPinB = 11; //assigns motor control pins
 const int dirPinA = 12, dirPinB = 13; //assigns motor direction pins
 const int frontSensorPinTrigger = 5, frontSensorPinEcho = 4; //assigns front sensor control pins
@@ -10,9 +10,9 @@ long rawDistanceFront, distanceFront, rawDistanceSide, distanceSide; //variables
 void setup() {
   Serial.begin(9600); //sets up serial port
   pinMode(motorPinA, OUTPUT); //sets up right motor
-  pinMode(dirPinA, OUTPUT);
+  pinMode(dirPinA, OUTPUT); //sets up right motor dirPin as OUTPUT
   pinMode(motorPinB, OUTPUT); //left motor
-  pinMode(dirPinB, OUTPUT);
+  pinMode(dirPinB, OUTPUT); //sets up left motor dirPin as OUTPUT
   pinMode(frontSensorPinTrigger, OUTPUT); //sets up front sensor
   pinMode(frontSensorPinEcho, INPUT); //front sensor feedback
   pinMode(sideSensorPinTrigger, OUTPUT); //sets up side sensor
