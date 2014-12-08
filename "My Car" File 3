@@ -1,0 +1,111 @@
+#define trigPinF 4
+#define echoPinF 5
+#define trigPinS 6
+#define echoPinS 7
+#define breakA 8
+#define breakB 9
+#define dirA 12
+#define dirB 13
+
+const int motorPinR = 3;
+const int motorPinL = 11;
+
+int SpeedL,SpeedR;
+
+ 
+void setup() {
+ //  Serial.begin (9600);
+   pinMode(trigPinF, OUTPUT);
+   pinMode(echoPinF, INPUT);
+
+
+   pinMode(breakA, OUTPUT);
+   pinMode(breakB, OUTPUT);
+
+   pinMode(motorPinR, OUTPUT);
+   pinMode(motorPinL, OUTPUT);
+
+   
+   pinMode(dirA, OUTPUT);
+   pinMode(dirB, OUTPUT);
+
+ }
+ 
+ 
+void loop() {
+ 
+
+ MeasureFront();
+} 
+ 
+ 
+void MeasureFront() {
+   long duration, distanceF, distanceS; // define as long int
+
+   digitalWrite(trigPinF, HIGH); //set trigger hi
+   delayMicroseconds(10); // short delay .010 second
+   digitalWrite(trigPinF, LOW); //set trigger low
+   duration = pulseIn(echoPinF, HIGH); //read echo pin
+   distanceF = (duration/2) / 29.1; // convert to cm
+   
+//   digitalWrite(trigPinS, HIGH); //set trigger hi
+//   delayMicroseconds(10); // short delay .010 second
+//   digitalWrite(trigPinS, LOW); //set trigger low
+//   duration = pulseIn(echoPinS, HIGH); //read echo pin
+//   distanceS = (duration/2) / 29.1; // convert to cm
+
+// Serial.println(distanceF);
+     
+   delay(100);
+   
+   if (distanceF < 40) {  // This is where the decisions happens
+    digitalWrite(dirA, LOW);
+     digitalWrite(dirB, HIGH);
+     MotorRun(250,250);
+     delay(5000);
+    
+    
+      
+//     digitalWrite(dirA, HIGH); // Pivot
+    
+//      MotorRun(255,255);
+ //delay(10); 
+ //digitalWrite(dirA, LOW);
+  // while (digitalRead(buttonPin) == HIGH) {
+  //  calibrate(); 
+ // }
+        
+   } 
+   else {
+
+digitalWrite(dirA, LOW);
+digitalWrite(dirB, LOW);
+
+     MotorRun(250,250);
+              
+    } 
+//delay(100);
+
+}
+
+void MotorRun(int SpdL, int SpdR)
+{
+
+  analogWrite(motorPinL, SpdL);
+  analogWrite(motorPinR, SpdR);
+
+
+//digitalWrite(dirA, HIGH);
+//digitalWrite(dirB, LOW);
+
+//    digitalWrite(breakA, HIGH);
+//    digitalWrite(breakB, HIGH);
+
+ //Serial.println(SpdL);
+ //Serial.print(SpdR);
+ 
+ //Serial.println("*");
+ 
+// delay(200);
+}
+
