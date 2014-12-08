@@ -1,0 +1,73 @@
+#define trigPinF 13
+#define echoPinF 12
+#define trigPinS 14
+#define echoPinS 15
+
+const int motorPinR = 9;
+const int motorPinL = 10;
+
+int SpeedL,SpeedR;
+
+ 
+void setup() {
+ //  Serial.begin (9600);
+   pinMode(trigPinF, OUTPUT);
+   pinMode(echoPinF, INPUT);
+
+
+
+   pinMode(motorPinR, OUTPUT);
+   pinMode(motorPinL, OUTPUT);
+
+   
+ }
+ 
+ 
+void loop() {
+ 
+  MotorRun(75,75);
+  MeasureFront();
+} 
+ 
+ 
+void MeasureFront() {
+   long duration, distanceF, distanceS; // define as long int
+
+   digitalWrite(trigPinF, HIGH); //set trigger hi
+   delayMicroseconds(10); // short delay .010 second
+   digitalWrite(trigPinF, LOW); //set trigger low
+   duration = pulseIn(echoPinF, HIGH); //read echo pin
+   distanceF = (duration/2) / 29.1; // convert to cm
+   
+   digitalWrite(trigPinS, HIGH); //set trigger hi
+   delayMicroseconds(10); // short delay .010 second
+   digitalWrite(trigPinS, LOW); //set trigger low
+   duration = pulseIn(echoPinS, HIGH); //read echo pin
+   distanceS = (duration/2) / 29.1; // convert to cm
+      
+   delay(50);
+   
+   if (distanceF < 8) {  // This is where the decisions happens
+     
+         if (distanceS >20) {  // Turn Left
+     
+               MotorRun(SpeedL,SpeedR);
+ }
+         else {                //Turn Right
+           
+           MotorRun(SpeedL,SpeedR);
+         }           
+
+delay(100);
+
+}
+}
+void MotorRun(int SpdL, int SpdR)
+{
+  
+  analogWrite(motorPinL, SpdL);
+  analogWrite(motorPinR, SpdR);
+
+
+}
+
