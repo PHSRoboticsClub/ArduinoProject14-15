@@ -1,0 +1,110 @@
+#define trigPinF 4
+#define echoPinF 5
+#define trigPinS 6
+#define echoPinS 7
+#define breakA 8
+#define breakB 9
+#define dirA 12
+#define dirB 13
+
+const int motorPinR = 3;
+const int motorPinL = 11;
+
+int SpeedL,SpeedR;
+
+ 
+void setup() {
+  Serial.begin (9600);
+   pinMode(trigPinF, OUTPUT);
+   pinMode(echoPinF, INPUT);
+
+
+   pinMode(breakA, OUTPUT);
+   pinMode(breakB, OUTPUT);
+
+   pinMode(motorPinR, OUTPUT);
+   pinMode(motorPinL, OUTPUT);
+
+   
+   pinMode(dirA, OUTPUT);
+   pinMode(dirB, OUTPUT);
+
+ }
+ 
+void loop()
+
+{
+  
+  digitalWrite(breakA, LOW);
+    digitalWrite(breakB, LOW);
+ 
+     
+     MotorRun(200,200);
+     delay(5000);
+     
+  
+    digitalWrite(breakA, LOW);
+    digitalWrite(breakB, LOW);
+ 
+     
+     MotorRun(250,250);
+     delay(5000);
+     MotorRun(0,250);
+     delay(5000);
+     MotorRun(250,0);
+     delay(5000);
+     digitalWrite(dirA, HIGH);
+     digitalWrite(dirB, HIGH);
+     MotorRun(250,250);
+     delay(5000);
+    
+     digitalWrite(dirA, LOW);
+     digitalWrite(dirB, HIGH);
+     MotorRun(250,250);
+     delay(5000);
+    
+     digitalWrite(dirA, HIGH);
+     digitalWrite(dirB, LOW);
+     MotorRun(250,250);
+     delay(5000);
+    
+    digitalWrite(dirA, LOW);
+     digitalWrite(dirB, LOW);
+    
+    
+    
+    
+    
+    
+    digitalWrite(breakA, HIGH);
+    digitalWrite(breakB, HIGH);
+     
+
+
+} 
+
+
+void MotorRun(int SpdL, int SpdR)
+{
+
+   Serial.println(SpdL);
+Serial.print(SpdR);
+ 
+ Serial.println("*");
+ 
+
+  
+  analogWrite(motorPinL, SpdL);
+  analogWrite(motorPinR, SpdR);
+
+
+//digitalWrite(dirA, HIGH);
+//digitalWrite(dirB, LOW);
+
+//    digitalWrite(breakA, HIGH);
+//    digitalWrite(breakB, HIGH);
+
+
+
+}
+
